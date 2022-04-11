@@ -1,0 +1,5 @@
+- Melhorar tratamento de erro das Controllers;
+- Criar usuário de aplicação no banco;
+- Colocar connectionString no arquivo de configuração;
+- Colocar validações na Business de Categoria;
+- Criar método Update.
