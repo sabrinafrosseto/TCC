@@ -40,6 +40,12 @@ namespace TCC.WebApi
             services.AddTransient<IAnuncianteData, AnuncianteData>();
             services.AddTransient<IAnuncianteBusiness, AnuncianteBusiness>();
 
+            services.AddTransient<ITagAnuncianteData, TagAnuncianteData>();
+            services.AddTransient<ITagAnuncianteBusiness, TagAnuncianteBusiness>();
+
+            services.AddTransient<IEmailAnuncianteData, EmailAnuncianteData>();
+            services.AddTransient<IEmailAnuncianteBusiness, EmailAnuncianteBusiness>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

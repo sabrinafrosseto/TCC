@@ -1,3 +1,7 @@
+20.06.2022 - Criar estrutura de telefone_anunciante e endereço_anunciante
+
+
+
 - Melhorar tratamento de erro das Controllers;
 - Criar usuário de aplicação no banco;
 - Colocar connectionString no arquivo de configuração;

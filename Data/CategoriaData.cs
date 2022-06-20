@@ -27,8 +27,10 @@ namespace Data
 
             command.Parameters.AddWithValue("@NOME", categoria.Nome);
             command.ExecuteNonQuery();
+
+            await _connection.CloseAsync();
         }
-                
+
         public async Task<List<Categoria>> GetAllAsync()
         {
             await _connection.OpenAsync();
@@ -47,6 +49,7 @@ namespace Data
 
                 result.Add(categoria);
             }
+            await _connection.CloseAsync();
 
             return result;
         }
@@ -60,6 +63,7 @@ namespace Data
             command.Parameters.AddWithValue("@ID", id);
             command.ExecuteNonQuery();
 
+            await _connection.CloseAsync();
         }
 
     }

@@ -4,12 +4,10 @@ using System.Threading.Tasks;
 
 namespace Core.Interfaces.Data
 {
-    public interface IAnuncianteData
+    public interface ITagAnuncianteData
     {
-        Task<int> CreateAsync(Anunciante anunciante);
-
-        Task<List<Anunciante>> GetAllAsync();
-
+        Task CreateAsync(TagAnunciante tagAnunciante);
         Task DeleteByIdAsync(int id);
+        Task<List<TagAnunciante>> GetAllAsync();
     }
 }

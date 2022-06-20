@@ -15,5 +15,9 @@ namespace Core.Model
         public string NumeroFiscal { get; set; }
 
         public string ReferenciaImagemPerfil { get; set; }
+
+        public List<TagAnunciante> Tags { get; set; }
+
+        public EmailAnunciante Email { get; set; }
     }
 }
