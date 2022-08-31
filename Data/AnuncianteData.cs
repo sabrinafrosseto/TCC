@@ -23,13 +23,16 @@ namespace Data
         {
             await _connection.OpenAsync();
 
-            using var command = new MySqlCommand("INSERT INTO ANUNCIANTE VALUES (NULL, @NOME, @NUMERO_FISCAL, @REFERENCIA_IMAGEM_PERFIL, @EMAIL, @TAGS); SELECT LAST_INSERT_ID();", _connection) ;
+            using var command = new MySqlCommand(
+                "INSERT INTO" +
+                " ANUNCIANTE" +
+                " VALUES" +
+                "(NULL, @NOME, @NUMERO_FISCAL, @REFERENCIA_IMAGEM_PERFIL); SELECT LAST_INSERT_ID();",
+                _connection) ;
 
             command.Parameters.AddWithValue("@NOME", anunciante.Nome);
             command.Parameters.AddWithValue("@NUMERO_FISCAL", anunciante.NumeroFiscal);
             command.Parameters.AddWithValue("@REFERENCIA_IMAGEM_PERFIL", anunciante.ReferenciaImagemPerfil);
-            command.Parameters.AddWithValue("@EMAIL", anunciante.Email);
-            command.Parameters.AddWithValue("@TAGS", anunciante.Tags);
 
             var id = command.ExecuteScalar();
 
@@ -42,7 +45,11 @@ namespace Data
         {
             await _connection.OpenAsync();
 
-            using var command = new MySqlCommand("SELECT ID, NOME,  NUMERO_FISCAL, REFERENCIA_IMAGEM_PERFIL, EMAIL, TAGS FROM ANUNCIANTE", _connection);
+            using var command = new MySqlCommand(
+                "SELECT a.ID, NOME, NUMERO_FISCAL, REFERENCIA_IMAGEM_PERFIL, b.EMAIL, b.ID as IDEMAIL " +
+                "FROM anunciante a  " +
+                "INNER JOIN EMAIL_ANUNCIANTE b on b.id_anunciante = a.id " +
+                "WHERE b.ID IS NOT NULL", _connection);
 
             using var dr = await command.ExecuteReaderAsync();
 
@@ -55,8 +62,12 @@ namespace Data
                 anunciante.Nome = dr["NOME"].ToString();
                 anunciante.NumeroFiscal = dr["NUMERO_FISCAL"].ToString();
                 anunciante.ReferenciaImagemPerfil = dr["REFERENCIA_IMAGEM_PERFIL"].ToString();
-                anunciante.Email = dr["EMAIL_an"].ToString();
-                anunciante.Tags = Convert.List<"TAGS">(dr["TAGS"].ToString());
+                anunciante.Email = new EmailAnunciante
+                { 
+                    Id = Convert.ToInt32(dr["IDEMAIL"].ToString()),
+                    Email = dr["EMAIL"].ToString(),
+                    IdAnunciante = Convert.ToInt32(dr["ID"].ToString())
+                };
 
                 result.Add(anunciante);
             }

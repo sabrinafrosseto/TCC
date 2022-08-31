@@ -19,5 +19,9 @@ namespace Core.Model
         public List<TagAnunciante> Tags { get; set; }
 
         public EmailAnunciante Email { get; set; }
+
+        public List<Categoria> Categorias { get; set; }
+
+        public List<TelefoneAnunciante> Telefones { get; set; }
     }
 }
